@@ -31,12 +31,19 @@ router.register(r'workouts', views.WorkoutViewSet)
 
 @api_view(['GET'])
 def api_root(request, format=None):
+    codespace_url = 'https://[REPLACE-THIS-WITH-YOUR-CODESPACE-NAME]-8000.app.github.dev/api/'
+    localhost_url = 'http://localhost:8000/api/'
     return Response({
-        'users': request.build_absolute_uri('users/'),
-        'teams': request.build_absolute_uri('teams/'),
-        'activity': request.build_absolute_uri('activity/'),
-        'leaderboard': request.build_absolute_uri('leaderboard/'),
-        'workouts': request.build_absolute_uri('workouts/'),
+        'users_codespace': codespace_url + 'users/',
+        'teams_codespace': codespace_url + 'teams/',
+        'activity_codespace': codespace_url + 'activity/',
+        'leaderboard_codespace': codespace_url + 'leaderboard/',
+        'workouts_codespace': codespace_url + 'workouts/',
+        'users_localhost': localhost_url + 'users/',
+        'teams_localhost': localhost_url + 'teams/',
+        'activity_localhost': localhost_url + 'activity/',
+        'leaderboard_localhost': localhost_url + 'leaderboard/',
+        'workouts_localhost': localhost_url + 'workouts/',
     })
 
 urlpatterns = [

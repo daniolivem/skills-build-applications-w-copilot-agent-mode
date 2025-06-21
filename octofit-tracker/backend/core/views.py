@@ -1,24 +1,24 @@
 
-from rest_framework import viewsets
-from .models import User, Team, Activity, Leaderboard, Workout
+
+from rest_framework import viewsets, status
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework.decorators import action
 from .serializers import UserSerializer, TeamSerializer, ActivitySerializer, LeaderboardSerializer, WorkoutSerializer
+import pymongo
+from bson import ObjectId
 
-class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+# Conexão direta com o MongoDB
+client = pymongo.MongoClient('mongodb://localhost:27017/')
+db = client['octofit_db']
 
-class TeamViewSet(viewsets.ModelViewSet):
-    queryset = Team.objects.all()
-    serializer_class = TeamSerializer
+class UserViewSet(viewsets.ViewSet):
+    def list(self, request):
+        users = list(db.users.find())
+        for user in users:
+            user['id'] = str(user['_id'])
+            user.pop('_id', None)
+        return Response(users)
 
-class ActivityViewSet(viewsets.ModelViewSet):
-    queryset = Activity.objects.all()
-    serializer_class = ActivitySerializer
 
-class LeaderboardViewSet(viewsets.ModelViewSet):
-    queryset = Leaderboard.objects.all()
-    serializer_class = LeaderboardSerializer
-
-class WorkoutViewSet(viewsets.ModelViewSet):
-    queryset = Workout.objects.all()
-    serializer_class = WorkoutSerializer
+# As demais ViewSets podem ser adaptadas para pymongo seguindo o exemplo do UserViewSet

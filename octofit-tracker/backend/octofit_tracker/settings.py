@@ -58,7 +58,6 @@ CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_HEADERS = ['*']
 CORS_ALLOW_METHODS = ['*']
 CORS_EXPOSE_HEADERS = ['Content-Type', 'X-CSRFToken']
-CORS_ALLOW_HEADERS = list('*')
 
 ROOT_URLCONF = 'octofit_tracker.urls'
 

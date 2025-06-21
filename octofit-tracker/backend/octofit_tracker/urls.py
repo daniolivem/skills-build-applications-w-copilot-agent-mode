@@ -24,11 +24,10 @@ from rest_framework.decorators import api_view
 
 router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet, basename='users')
-# Os outros endpoints só devem ser registrados quando os ViewSets estiverem implementados para pymongo
-# router.register(r'teams', views.TeamViewSet, basename='teams')
-# router.register(r'activity', views.ActivityViewSet, basename='activity')
-# router.register(r'leaderboard', views.LeaderboardViewSet, basename='leaderboard')
-# router.register(r'workouts', views.WorkoutViewSet, basename='workouts')
+router.register(r'teams', views.TeamViewSet, basename='teams')
+router.register(r'activity', views.ActivityViewSet, basename='activity')
+router.register(r'leaderboard', views.LeaderboardViewSet, basename='leaderboard')
+router.register(r'workouts', views.WorkoutViewSet, basename='workouts')
 
 @api_view(['GET'])
 def api_root(request, format=None):

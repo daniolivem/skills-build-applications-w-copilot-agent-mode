@@ -23,27 +23,21 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
 router = routers.DefaultRouter()
-router.register(r'users', views.UserViewSet)
-router.register(r'teams', views.TeamViewSet)
-router.register(r'activity', views.ActivityViewSet)
-router.register(r'leaderboard', views.LeaderboardViewSet)
-router.register(r'workouts', views.WorkoutViewSet)
+router.register(r'users', views.UserViewSet, basename='users')
+# Os outros endpoints só devem ser registrados quando os ViewSets estiverem implementados para pymongo
+# router.register(r'teams', views.TeamViewSet, basename='teams')
+# router.register(r'activity', views.ActivityViewSet, basename='activity')
+# router.register(r'leaderboard', views.LeaderboardViewSet, basename='leaderboard')
+# router.register(r'workouts', views.WorkoutViewSet, basename='workouts')
 
 @api_view(['GET'])
 def api_root(request, format=None):
-    codespace_url = 'https://[REPLACE-THIS-WITH-YOUR-CODESPACE-NAME]-8000.app.github.dev/api/'
+    codespace_url = 'https://super-fishstick-8000.app.github.dev/api/'
     localhost_url = 'http://localhost:8000/api/'
     return Response({
         'users_codespace': codespace_url + 'users/',
-        'teams_codespace': codespace_url + 'teams/',
-        'activity_codespace': codespace_url + 'activity/',
-        'leaderboard_codespace': codespace_url + 'leaderboard/',
-        'workouts_codespace': codespace_url + 'workouts/',
         'users_localhost': localhost_url + 'users/',
-        'teams_localhost': localhost_url + 'teams/',
-        'activity_localhost': localhost_url + 'activity/',
-        'leaderboard_localhost': localhost_url + 'leaderboard/',
-        'workouts_localhost': localhost_url + 'workouts/',
+        'info': 'Apenas o endpoint de users está disponível no momento. Os demais serão liberados após adaptação para pymongo.'
     })
 
 urlpatterns = [
